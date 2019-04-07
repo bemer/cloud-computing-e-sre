@@ -38,9 +38,9 @@ Agora, clique em `click to add a Name tag` no centro da página. Note que este �
 
 ![add tags](/01-DeployAplicacao/images/add_tags.png)
 
-Agora, vamos realizar a configuração de firewall necessária para que possamos acessar o nosso servidor apache através da porta 80 (HTTP). No passo 6, mantenha selecionada a opção `Create a **new** security group`. Para o nome de nosso security group, vamos utilizar `apache-server`. Insira o mesmo texto também na descrição.
+Agora, vamos realizar a configuração de firewall necessária para que possamos acessar o nosso servidor apache através da porta 80 (HTTP). No passo 6, mantenha selecionada a opção `Create a **new** security group`. Para o nome de nosso security group, vamos utilizar `web-app-server`. Insira o mesmo texto também na descrição.
 
-Altere a regra do seu security group para que invés de `SSH`, a opção `Type` seja `HTTP`. Em seguida, clique em `Review and Launch`, no canto inferior direito da tela:
+Altere a regra do seu security group para que a regra que permita o tráfego `SSH` permita acesso apenas a partir de seu endereço IP selecionando `My IP` em `Source` e adicione uma nova regra permitindo o tráfeto HTTP clicando em `Add Rule`. Em seguida, clique em `Review and Launch`, no canto inferior direito da tela:
 
 ![configure sg](/01-DeployAplicacao/images/configure_sg.png)
 
@@ -58,64 +58,10 @@ Neste ponto, seu servidor será provisionado. Clique então em `View Instances` 
 
 ![launch status](/01-DeployAplicacao/images/launch_status.png)
 
-Você será redirecionado novamente para a página do EC2, no entanto agora existirá uma instância em execução. Para testarmos a instalação do Apache Server nesta instância, vamos copiar o hostname público da mesma e utilizar uma nova aba de nosso browser para validar o funcionamento.
+Você será redirecionado novamente para a página do EC2, no entanto agora existirá uma instância em execução. O próximo passo, é obter os dados de hostname ou endereço IP público da instância para podermos realizar acesso remoto ao servidor e colocarmos nossa aplicação no ar.
 
-O hostname está disponível em `Public DNS (IPv4)`:
+Os dados de endereço IP e hostname estão disponíveis na console do EC2:
 
 ![get public dns](/01-DeployAplicacao/images/get_public_dns.png)
 
-Ao acessar este endereço em uma nova aba do browser, deveremos visualizar a página do Apache Server:
-
-![apache server](/01-DeployAplicacao/images/apache_server.png)
-
-
-## 2. Criando uma imagem
-
-Agora que já temos nosso servidor apache funcionando, vamos gerar uma nova imagem a partir deste servidor. Para isto, na tela do EC2, clique eu sua instância chamada `apache-server` com o botão direito do mouse e em `Image`, clique em `Create Image`:
-
-![create image](/01-DeployAplicacao/images/create_image.png)
-
-Na próxima tela, complete com o nome `apache-server` e adicione uma descrição para o mesmo. Clique então em `Create Image`:
-
-![image information](/01-DeployAplicacao/images/image_information.png)
-
-Note que o processo de criação de uma nova imagem será iniciado. Para acompanhar este processo, clique em `View pending image ami-0a2d560eb597bb` (note que este ID será diferente para cada conta):
-
-![view image](/01-DeployAplicacao/images/view_image.png)
-
-Este processo deverá demorar alguns minutos. Quando o mesmo for completado, o status de sua imagem será exibido como `available`:
-
-![image status](/01-DeployAplicacao/images/image_status.png)
-
-
-## 3. Iniciando um servidor a partir da sua imagem
-
-Quando o processo de criação de sua imagem estiver completo, você poderá então iniciar novas instâncias a partir dela. Para isto, clique em `Launch` na parte superior esquerda da tela:
-
-![launch image](/01-DeployAplicacao/images/launch_image.png)
-
-> Caso você não visualize sua imagem na console, clique em `AMIs`, no menu lateral esquerdo da tela, dentro de `IMAGES`.
-
-Você será redirecionado então para o mesmo processo de criação de uma instância EC2. Siga os mesmos procedimentos de anteriormente, no entanto **não adicione o script de user data** e nomeie esta nova instância como `apache-server-2`.
-
-Desta vez, para a configuração do security group, utilize a opção `Select an existing security group` e selecione o security group criado anteriormete, `apache-server`.
-
-Note que desta vez, ao clicar em `Launch`, o seu certificado já estará selecionado. Marque a opção logo abaixo do mesmo para garantir que você tem ciência de que se não tiver acesso ao arquivo você não conseguirá acessar sua instância e em seguida clique em `Launch Instances`.
-
-Você deverá ter agora dois servidores em execução, sendo que um deles foi configurado manualmente e o outro foi criado através de uma imagem previamente gerada. Acesse o hostname de seu novo servidor em uma nova aba do browser e valide o funcionamento.
-
-## 4. Limpando o ambiente
-
-Após finalizarmos o laboratório, é importante se lembrar de excluir todos os servidores e imagem previamente criados para que não ocorram cobranças em seu cartão de crédito.
-
-Para isto, na tela principal do serviço EC2, selecione os dois servidores criados, clique em `Actions`, `Instance State` e em `Terminate` para excluir as máquinas virtuais provisionadas. Na tela de confirmação, clique em `Yes, Terminate`:
-
-![terminate instances](/01-DeployAplicacao/images/terminate_instances.png)
-
-Agora, no menu lateral esquerdo, navegue até `AMIs`, selecione a imagem criada e em `Actions`, clique em `Deregister`:
-
-![deregister ami](/01-DeployAplicacao/images/deregister_ami.png)
-
-Por fim, clique em `Snapshots`no menu lateral, selecione o snapshot existente, clique em `Actions` e em seguida em `Delete`:
-
-![delete snapshot](/01-DeployAplicacao/images/delete_snapshot.png)
+## 2. Acessando a instância e realizando o deployment da aplicação
