@@ -51,3 +51,39 @@ Após o processo de instalação, acesse o Jenkins através de seu Web Browser u
 Você será redirecionado para uma página de login do Jenkins que solicitará a senha criada durante a instalação:
 
 ![unlock jenkins](/02-InstalandoJenkins/images/unlock-jenkins.jpg)
+
+Durante o processo de instalação, o Jenkins gerou uma senha com 32 caracteres e salvou no arquivo `/var/lib/jenkins/secrets/initialAdminPassword`. Para obter esta senha, volte ao terminal e utilize o seguinte comando:
+
+    sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+A senha será exibida. Copie a mesma a partir do terminal e cole-a na interface. Feito isto, clique em `Continue`.
+
+O próximo passo é realizar a instalação dos plugins do Jenkins. Clique na opção `Install suggested plugins`:
+
+![customize jenkins](/02-InstalandoJenkins/images/customize-jenkins.jpg)
+
+A instalação iniciará automaticamente:
+
+![getting started](/02-InstalandoJenkins/images/jenkins-getting-started.jpg)
+
+Quando a instalação for finalizada, será apresentada uma tela para a criação do usuário administrador do Jenkins. Preencha com as seguintes informações:
+
+    Nome de usuário: admin
+    Senha: admin01
+    Confirmar a senha: admin01
+    Nome completo: Administrator
+    Endereço de e-mail:	seuemail@provedor.com
+
+E clique em `Save and continue`:
+
+![create user](/02-InstalandoJenkins/images/create-user.png)
+
+A próxima página irá pedir pela URL utilizada pelo Jenkins e já virá populada. Apenas clique em `Save and finish`:
+
+![create user](/02-InstalandoJenkins/images/instance-configuration.png)
+
+Feito isto, sua instalação do Jenkins estará completa e você poderá continuar para a página de login clicando no botão `Start using Jenkins`:
+
+![jenkins ready](/02-InstalandoJenkins/images/jenkins-ready.png)
+
+![jenkins main](/02-InstalandoJenkins/images/jenkins-main.png)
