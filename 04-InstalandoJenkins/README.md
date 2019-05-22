@@ -136,7 +136,7 @@ Após o processo de instalação, acesse o Jenkins através de seu Web Browser u
 
 Você será redirecionado para uma página de login do Jenkins que solicitará a senha criada durante a instalação:
 
-![unlock jenkins](/03-InstalandoJenkins/images/unlock-jenkins.jpg)
+![unlock jenkins](/04-InstalandoJenkins/images/unlock-jenkins.jpg)
 
 Durante o processo de instalação, o Jenkins gerou uma senha com 32 caracteres e salvou no arquivo `/var/lib/jenkins/secrets/initialAdminPassword`. Para obter esta senha, volte ao terminal e utilize o seguinte comando:
 
@@ -146,11 +146,11 @@ A senha será exibida. Copie a mesma a partir do terminal e cole-a na interface.
 
 O próximo passo é realizar a instalação dos plugins do Jenkins. Clique na opção `Install suggested plugins`:
 
-![customize jenkins](/03-InstalandoJenkins/images/customize-jenkins.jpg)
+![customize jenkins](/04-InstalandoJenkins/images/customize-jenkins.jpg)
 
 A instalação iniciará automaticamente:
 
-![getting started](/03-InstalandoJenkins/images/jenkins-getting-started.jpg)
+![getting started](/04-InstalandoJenkins/images/jenkins-getting-started.jpg)
 
 Quando a instalação for finalizada, será apresentada uma tela para a criação do usuário administrador do Jenkins. Preencha com as seguintes informações:
 
@@ -162,17 +162,17 @@ Quando a instalação for finalizada, será apresentada uma tela para a criaçã
 
 E clique em `Save and continue`:
 
-![create user](/03-InstalandoJenkins/images/create-user.png)
+![create user](/04-InstalandoJenkins/images/create-user.png)
 
 A próxima página irá pedir pela URL utilizada pelo Jenkins e já virá populada. Apenas clique em `Save and finish`:
 
-![create user](/03-InstalandoJenkins/images/instance-configuration.png)
+![create user](/04-InstalandoJenkins/images/instance-configuration.png)
 
 Feito isto, sua instalação do Jenkins estará completa e você poderá continuar para a página de login clicando no botão `Start using Jenkins`:
 
-![jenkins ready](/03-InstalandoJenkins/images/jenkins-ready.png)
+![jenkins ready](/04-InstalandoJenkins/images/jenkins-ready.png)
 
-![jenkins main](/03-InstalandoJenkins/images/jenkins-main.png)
+![jenkins main](/04-InstalandoJenkins/images/jenkins-main.png)
 
 ## 04. Adicionando permissões
 
@@ -190,15 +190,15 @@ Em seguida, reinicie o processo do Jenkins:
 
 Agora que temos o plugin para build instalado, devemos realizar a criação de um novo job para que o repositório seja acessado a partir do Jenkins. Para isto, na tela inicial, clique em `Novo Job`. Nesta tela, defina o nome `build-fiap-app`, selecione `Construir um projeto de software free-style` e em seguida clique em `OK`:
 
-![job creation](/03-InstalandoJenkins/images/job-creation.png)
+![job creation](/04-InstalandoJenkins/images/job-creation.png)
 
 Na próxima tela, selecione `Git` em `Gerenciamento de código fonte` e adicione a URL do seu repositório no GitHub:
 
-![repo selection](/03-InstalandoJenkins/images/repo-selection.png)
+![repo selection](/04-InstalandoJenkins/images/repo-selection.png)
 
 Agora, ainda nesta tela, clique em `Adicionar passo no build` no sub-menu `Build` e selecione `Docker Build and Publish`:
 
-![add build step](/03-InstalandoJenkins/images/add-build-step.png)
+![add build step](/04-InstalandoJenkins/images/add-build-step.png)
 
 Na nova tela, preencha as informaçoes da seguinte maneira:
 
@@ -207,7 +207,7 @@ Na nova tela, preencha as informaçoes da seguinte maneira:
 
 Adicionalmente, vamos precisar informar as credenciais do Docker Hub para que o Jenkins possa realizar o upload de nossa imagem. Para isto, em `Registry Credentials` clique no botão `Add` e em seguinda selecione `Jenkins`:
 
-![add credentials](/03-InstalandoJenkins/images/add-credentials.png)
+![add credentials](/04-InstalandoJenkins/images/add-credentials.png)
 
 Na nova tela, preencha as informações da seguinte maneira:
 
@@ -217,34 +217,34 @@ Na nova tela, preencha as informações da seguinte maneira:
 
 Em seguida, clique em `Add`:
 
-![adding credentials](/03-InstalandoJenkins/images/adding-credentials.png)
+![adding credentials](/04-InstalandoJenkins/images/adding-credentials.png)
 
 Feito isto, na tela de configuração do processo de Build, selecione as credenciais recém criadas, e em seguida clique em `Salvar`:
 
-![save build](/03-InstalandoJenkins/images/salve-build.png)
+![save build](/04-InstalandoJenkins/images/salve-build.png)
 
 Você será redirecionado para a tela do projeto `build-fiap-app`. Para realizar o build, clique em `Construir agora` no menu lateral esquerdo:
 
-![build now](/03-InstalandoJenkins/images/build-now.png)
+![build now](/04-InstalandoJenkins/images/build-now.png)
 
 O processo de build será iniciado e você poderá acompanhar a execução do mesmo, clicando no histórico de builds, na parte esquerda da tela:
 
-![build history](/03-InstalandoJenkins/images/build-history.png)
+![build history](/04-InstalandoJenkins/images/build-history.png)
 
 Caso queira acompanhar as mensagens geradas pelo processo, clique em `Saída do console` no menu lateral esquerdo:
 
-![console output](/03-InstalandoJenkins/images/console-output.png)
+![console output](/04-InstalandoJenkins/images/console-output.png)
 
 Ao final do processo, caso tudo esteja correto, na página inicial do Jenkins, será exibido o status de seu job com um ícone azul e o indicador de sucesso:
 
-![success build](/03-InstalandoJenkins/images/success-build.png)
+![success build](/04-InstalandoJenkins/images/success-build.png)
 
 ## 06. Validando o build
 
 Agora que a build é apresentada no Jenkins com o status de sucesso, o próximo passo é saber se a imagem Docker foi devidamente criada e enviada para o Docker Hub. Para isto acesse a sua console do Docker Hub através da URL https://hub.docker.com, insira suas credenciais, e você deverá visualizar uma imagem Docker disponível:
 
-![docker hub console](/03-InstalandoJenkins/images/docker-hub-console.png)
+![docker hub console](/04-InstalandoJenkins/images/docker-hub-console.png)
 
 Clique na imagem em questão e verifique se as tags foram devidamente preenchidas. Você deverá identificar a tag `latest` e a tag `1`, que representa o ID do processo de build do Jenkins:
 
-![docker tags](/03-InstalandoJenkins/images/docker-tags.png)
+![docker tags](/04-InstalandoJenkins/images/docker-tags.png)
