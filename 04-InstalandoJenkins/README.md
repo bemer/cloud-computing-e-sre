@@ -1,6 +1,6 @@
 # Instalando o Jenkins
 
-Agora que já temos a configuração de rede de nossas máquinas virtuais devidamente efetuadas, vamos passar ao processo de instalação do Jenkins.
+Agora que já temos a configuração de rede de nossas máquinas virtuais devidamente efetuadas e todos os pré-requisitos devidamente preenchidos, vamos passar ao processo de instalação do Jenkins.
 
 Jekins é uma ferramenta de automação open source escrita em Java e será utilizado para gerar novas versões de nossa aplicação automaticamente, sendo o principal recurso para a implementação de *Continuous Integration* em nosso laboratório.
 
