@@ -13,7 +13,7 @@ Como o Jenkins é desenvolvido em Java, é necessário realizarmos a instalaçã
     sudo apt-get update
     sudo apt-get install openjdk-8-jdk -y
 
-## 02. Instalação do Docker
+## 02. Instalação e configuração do Docker
 
 Nos próximos laboratórios, vamos gerar imagens Docker e, para isto, precisamos instalar o Docker em nossa VM. Para instalar o Docker, execute os seguintes comandos:
 
@@ -69,6 +69,35 @@ A saída deverá ser semelhante a:
     https://docs.docker.com/get-started/
 
 isto significa que o Docker foi devidamente instalado em sua VM.
+
+Vamos agora configurar o Daemon do docker para que possamos habilitar conexões remotas ao serviço. Isto será necessário para que possamos utilizar o plugin do Jenkins que realizará o build de nossas imagens posteriormente. Para isto, edite o arquivo `vi /lib/systemd/system/docker.service` utilizando o seguinte comando:
+
+    sudo vi vi /lib/systemd/system/docker.service
+
+Altere a linha 15 deste arquivo, mudando de:
+
+    ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+Para:
+
+    ExecStart=/usr/bin/dockerd -H fd:// -H=tcp://0.0.0.0:2375
+
+> Esta configuração irá habilitar conexões via socket ao Docker Daemon. Mais informações sobre esta alteração podem ser encontradas no seguinte link: https://docs.docker.com/engine/reference/commandline/dockerd/
+
+Feito isto, reinicie o serviço do Docker através dos seguintes comandos:
+
+    systemctl daemon-reload
+    sudo service docker restart
+
+Para validar se a alteração foi realizada com sucesso, podemos observar o status do processo dockerd através do seguinte comando:
+
+    ps -ef | grep docker
+
+A saída deverá ser semelhante a:
+
+    root      2340     1  2 23:43 ?        00:00:00 /usr/bin/dockerd -H fd:// -H=tcp://0.0.0.0:2375
+
+
 
 ## 03. Adicionando o repositório do Jenkins
 
@@ -144,3 +173,51 @@ Feito isto, sua instalação do Jenkins estará completa e você poderá continu
 ![jenkins ready](/02-InstalandoJenkins/images/jenkins-ready.png)
 
 ![jenkins main](/02-InstalandoJenkins/images/jenkins-main.png)
+
+## 04. Configuran do permissionamento do Docker
+
+Durante o processo de instalação do Jenkins, o usuário `jenkins` é criado no sistema operacional. Como vamos utilizar o Jenkins para realizar o build das imagens, precisamos que este usuário tenha permissões para executar o Docker. Para isto, precisamos adicionar o usuário `jenkins` no grupo `docker`. Utilize o seguinte comando:
+
+    sudo groupadd docker
+    sudo usermod -a -G docker jenkins
+
+Em seguida, reinicie o processo do Jenkins:
+
+    sudo service jenkins restart
+
+
+## 05. Instalando Docker Plugin
+
+Agora que temos o Jenkins devidamente instalado, o próximo passo é instalar o Plugin para build de nossas imagens Docker. Para isto, no menu lateral da tela de administração do Jenkins clique em `Gerenciar Jenkins` e em seguida em `Gerenciar Plugins`. Nesta tela, clique em `Disponíveis` e utilizando o campo de pesquisa, procure por `Docker`:
+
+![manage plugins](/02-InstalandoJenkins/images/manage-plugins.png)
+
+Nesta tela, selecione o plugin `Docker` e em seguida clique em `Instalar sem Reiniciar`:
+
+![install docker plugin](/02-InstalandoJenkins/images/install-docker-plugin.png)
+
+O plugin Docker será então instalado em seu Jenkins server:
+
+![docker plugin installation](/02-InstalandoJenkins/images/docker-plugin-installation.png)
+
+Após a instalação do plugin, clique em `Voltar para a página inicial`.
+
+## 05. Configurando o Docker Plugin
+
+Após realizar a instalação do plugin, precisamos configurar o mesmo para o processo de execução dos containers. Esta configuração irá dizer ao plugin qual imagem deverá ser utilizada para o processo de build de nossa aplicação. Note que neste caso, estaremos utilizando um container docker para realizar o build de nossa aplicação em um novo container. Para os fãs de cinema, podemos utilizar o termo "Inception".
+
+Para isto, clique novamente em `Gerenciar Jenkins` e em seguida em `Configurar o sistema` para acessar as configurações do Jenkins:
+
+![configure system](/02-InstalandoJenkins/images/configure-system.png)
+
+No final desta página, clique em `Adicionar uma nova nuvem` e selecione `Docker`:
+
+![add new cloud](/02-InstalandoJenkins/images/add-new-cloud.png)
+
+Clique então em `Docker Cloud details...` e no campo `Docker Host URI` adicione a seguinte URI:
+
+    tcp://127.0.0.1:2375
+
+Feito isto, clique em `Test Connection` para validar o funcionamento. Caso tudo dê certo, as versões do Docker Agent e API serão exibidas:
+
+![test connection](/02-InstalandoJenkins/images/test-connection.png)
