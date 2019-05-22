@@ -70,7 +70,7 @@ A saída deverá ser semelhante a:
 
 isto significa que o Docker foi devidamente instalado em sua VM.
 
-Vamos agora configurar o Daemon do docker para que possamos habilitar conexões remotas ao serviço. Isto será necessário para que possamos utilizar o plugin do Jenkins que realizará o build de nossas imagens posteriormente. Para isto, edite o arquivo `vi /lib/systemd/system/docker.service` utilizando o seguinte comando:
+<!-- Vamos agora configurar o Daemon do docker para que possamos habilitar conexões remotas ao serviço. Isto será necessário para que possamos utilizar o plugin do Jenkins que realizará o build de nossas imagens posteriormente. Para isto, edite o arquivo `vi /lib/systemd/system/docker.service` utilizando o seguinte comando:
 
     sudo vi vi /lib/systemd/system/docker.service
 
@@ -95,7 +95,7 @@ Para validar se a alteração foi realizada com sucesso, podemos observar o stat
 
 A saída deverá ser semelhante a:
 
-    root      2340     1  2 23:43 ?        00:00:00 /usr/bin/dockerd -H fd:// -H=tcp://0.0.0.0:2375
+    root      2340     1  2 23:43 ?        00:00:00 /usr/bin/dockerd -H fd:// -H=tcp://0.0.0.0:2375 -->
 
 
 
