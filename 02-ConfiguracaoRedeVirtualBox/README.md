@@ -89,3 +89,5 @@ Ao executar o Putty, vamos realizar as configurações para acesso ao servidor d
 Após realizar estas configurações, preencha o campo `Saved Sessions` com o nome `jenkins` e clique em `Save`. Isto irá facilitar o acesso ao servidor posteriormente caso a sessão seja encerrada por alguma razão:
 
 ![putty access](/02-ConfiguracaoRedeVirtualBox/images/putty_access.png)
+
+Para realizar acesso ao servidor onde vamos realizar a instalação do Jenkins, selecione o mesmo em `Save Sessions` e clique em `Open`. Você se conectará ao servidor e o mesmo irá solicitar a senha para acesso. Neste caso, utilize a senha `jenkins01`.
