@@ -1,5 +1,8 @@
 # Instalando uma aplicação na Nuvem Pública
 
+![deploy](/01-DeployAplicacao/images/deploy.png)
+
+
 Uma das melhores formas para se entender como a nuvem pública funciona é interagindo com os serviços disponíveis.
 
 Neste tutorial vamos realizar o deployment de uma aplicação web em um servidor virtual na nuvem da Amazon Web Services.

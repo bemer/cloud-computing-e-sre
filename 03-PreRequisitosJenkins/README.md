@@ -1,5 +1,8 @@
 # Pré Requisitos para Execução do Laboratório
 
+![checkmark](/03-PreRequisitosJenkins/images/checkmark.png)
+
+
 O próximo laboratório a ser executado gira em torno da instalação do `Jenkins` e da configuração de um job para build de uma imagem Docker com nossa aplicação para deploy em ambientes de nuvem. Para isto, precisaremos preencher alguns requisitos mínimos que são:
 
 - Criação de conta no Docker Hub;
