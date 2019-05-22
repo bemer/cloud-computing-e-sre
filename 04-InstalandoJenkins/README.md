@@ -188,8 +188,23 @@ Em seguida, reinicie o processo do Jenkins:
 
     sudo service jenkins restart
 
+## 05. Instalando Plugin para Build
 
-## 05. Criando um novo Job
+Agora, com o Jenkins devidamente instalado e configurado, vamos instalar o plugin necessário para o processo de Build de nossa imagem Docker. Para isto, utilizaremos um plugin chamado `CloudBees Docker Build and Publish`. Para realizar esta instalação, clique em `Gerenciar Jenkins` no menu esquerdo da tela, e em seguida clique em `Gerenciar plugins`:
+
+![manage jenkins](/04-InstalandoJenkins/images/manage-jenkins.png)
+
+Na próxima tela, selecione a aba `Disponíveis` e no campo de busca pesquise por `CloudBees Docker Build and Publish`. Quando o plugin for localizado, selecione o mesmo e em seguida clique em `Instalar sem reiniciar`:
+
+![install docker plugin](/04-InstalandoJenkins/images/install-docker-plugin.png)
+
+A instalação do Plugin será iniciada e você poderá acompanhar o status da mesma até que o status seja alterado para `Sucesso`. Feito isto, clique em `Voltar para a página inicial`:
+
+![docker plugin installation](/04-InstalandoJenkins/images/docker-plugin-installation.png)
+
+
+
+## 06. Criando um novo Job
 
 Agora que temos o plugin para build instalado, devemos realizar a criação de um novo job para que o repositório seja acessado a partir do Jenkins. Para isto, na tela inicial, clique em `Novo Job`. Nesta tela, defina o nome `build-fiap-app`, selecione `Construir um projeto de software free-style` e em seguida clique em `OK`:
 
@@ -242,7 +257,7 @@ Ao final do processo, caso tudo esteja correto, na página inicial do Jenkins, s
 
 ![success build](/04-InstalandoJenkins/images/success-build.png)
 
-## 06. Validando o build
+## 07. Validando o build
 
 Agora que a build é apresentada no Jenkins com o status de sucesso, o próximo passo é saber se a imagem Docker foi devidamente criada e enviada para o Docker Hub. Para isto acesse a sua console do Docker Hub através da URL https://hub.docker.com, insira suas credenciais, e você deverá visualizar uma imagem Docker disponível:
 
