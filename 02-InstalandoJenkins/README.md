@@ -174,7 +174,7 @@ Feito isto, sua instalação do Jenkins estará completa e você poderá continu
 
 ![jenkins main](/02-InstalandoJenkins/images/jenkins-main.png)
 
-## 04. Configuran do permissionamento do Docker
+## 04. Adicionando permissões
 
 Durante o processo de instalação do Jenkins, o usuário `jenkins` é criado no sistema operacional. Como vamos utilizar o Jenkins para realizar o build das imagens, precisamos que este usuário tenha permissões para executar o Docker. Para isto, precisamos adicionar o usuário `jenkins` no grupo `docker`. Utilize o seguinte comando:
 
@@ -186,38 +186,65 @@ Em seguida, reinicie o processo do Jenkins:
     sudo service jenkins restart
 
 
-## 05. Instalando Docker Plugin
+## 05. Criando um novo Job
 
-Agora que temos o Jenkins devidamente instalado, o próximo passo é instalar o Plugin para build de nossas imagens Docker. Para isto, no menu lateral da tela de administração do Jenkins clique em `Gerenciar Jenkins` e em seguida em `Gerenciar Plugins`. Nesta tela, clique em `Disponíveis` e utilizando o campo de pesquisa, procure por `Docker`:
+Agora que temos o plugin para build instalado, devemos realizar a criação de um novo job para que o repositório seja acessado a partir do Jenkins. Para isto, na tela inicial, clique em `Novo Job`. Nesta tela, defina o nome `build-fiap-app`, selecione `Construir um projeto de software free-style` e em seguida clique em `OK`:
 
-![manage plugins](/02-InstalandoJenkins/images/manage-plugins.png)
+![job creation](/02-InstalandoJenkins/images/job-creation.png)
 
-Nesta tela, selecione o plugin `Docker` e em seguida clique em `Instalar sem Reiniciar`:
+Na próxima tela, selecione `Git` em `Gerenciamento de código fonte` e adicione a URL do seu repositório no GitHub:
 
-![install docker plugin](/02-InstalandoJenkins/images/install-docker-plugin.png)
+![repo selection](/02-InstalandoJenkins/images/repo-selection.png)
 
-O plugin Docker será então instalado em seu Jenkins server:
+Agora, ainda nesta tela, clique em `Adicionar passo no build` no sub-menu `Build` e selecione `Docker Build and Publish`:
 
-![docker plugin installation](/02-InstalandoJenkins/images/docker-plugin-installation.png)
+![add build step](/02-InstalandoJenkins/images/add-build-step.png)
 
-Após a instalação do plugin, clique em `Voltar para a página inicial`.
+Na nova tela, preencha as informaçoes da seguinte maneira:
 
-## 05. Configurando o Docker Plugin
+    Repository Name: seu_dockerhub_username/fiap-app
+    Tag: $BUILD_NUMBER
 
-Após realizar a instalação do plugin, precisamos configurar o mesmo para o processo de execução dos containers. Esta configuração irá dizer ao plugin qual imagem deverá ser utilizada para o processo de build de nossa aplicação. Note que neste caso, estaremos utilizando um container docker para realizar o build de nossa aplicação em um novo container. Para os fãs de cinema, podemos utilizar o termo "Inception".
+Adicionalmente, vamos precisar informar as credenciais do Docker Hub para que o Jenkins possa realizar o upload de nossa imagem. Para isto, em `Registry Credentials` clique no botão `Add` e em seguinda selecione `Jenkins`:
 
-Para isto, clique novamente em `Gerenciar Jenkins` e em seguida em `Configurar o sistema` para acessar as configurações do Jenkins:
+![add credentials](/02-InstalandoJenkins/images/add-credentials.png)
 
-![configure system](/02-InstalandoJenkins/images/configure-system.png)
+Na nova tela, preencha as informações da seguinte maneira:
 
-No final desta página, clique em `Adicionar uma nova nuvem` e selecione `Docker`:
+    Username: seu usuário do Docker Hub
+    Password: sua senha do Docker Hub
+    ID: docker-hub-credentials
 
-![add new cloud](/02-InstalandoJenkins/images/add-new-cloud.png)
+Em seguida, clique em `Add`:
 
-Clique então em `Docker Cloud details...` e no campo `Docker Host URI` adicione a seguinte URI:
+![adding credentials](/02-InstalandoJenkins/images/adding-credentials.png)
 
-    tcp://127.0.0.1:2375
+Feito isto, na tela de configuração do processo de Build, selecione as credenciais recém criadas, e em seguida clique em `Salvar`:
 
-Feito isto, clique em `Test Connection` para validar o funcionamento. Caso tudo dê certo, as versões do Docker Agent e API serão exibidas:
+![save build](/02-InstalandoJenkins/images/salve-build.png)
 
-![test connection](/02-InstalandoJenkins/images/test-connection.png)
+Você será redirecionado para a tela do projeto `build-fiap-app`. Para realizar o build, clique em `Construir agora` no menu lateral esquerdo:
+
+![build now](/02-InstalandoJenkins/images/build-now.png)
+
+O processo de build será iniciado e você poderá acompanhar a execução do mesmo, clicando no histórico de builds, na parte esquerda da tela:
+
+![build history](/02-InstalandoJenkins/images/build-history.png)
+
+Caso queira acompanhar as mensagens geradas pelo processo, clique em `Saída do console` no menu lateral esquerdo:
+
+![console output](/02-InstalandoJenkins/images/console-output.png)
+
+Ao final do processo, caso tudo esteja correto, na página inicial do Jenkins, será exibido o status de seu job com um ícone azul e o indicador de sucesso:
+
+![success build](/02-InstalandoJenkins/images/success-build.png)
+
+## 06. Validando o build
+
+Agora que a build é apresentada no Jenkins com o status de sucesso, o próximo passo é saber se a imagem Docker foi devidamente criada e enviada para o Docker Hub. Para isto acesse a sua console do Docker Hub através da URL https://hub.docker.com, insira suas credenciais, e você deverá visualizar uma imagem Docker disponível:
+
+![docker hub console](/02-InstalandoJenkins/images/docker-hub-console.png)
+
+Clique na imagem em questão e verifique se as tags foram devidamente preenchidas. Você deverá identificar a tag `latest` e a tag `1`, que representa o ID do processo de build do Jenkins:
+
+![docker tags](/02-InstalandoJenkins/images/docker-tags.png)
