@@ -239,7 +239,7 @@ Em seguida, clique em `Add`:
 
 Feito isto, na tela de configuração do processo de Build, selecione as credenciais recém criadas, e em seguida clique em `Salvar`:
 
-![save build](/04-InstalandoJenkins/images/salve-build.png)
+![save build](/04-InstalandoJenkins/images/save-build.png)
 
 Você será redirecionado para a tela do projeto `build-fiap-app`. Para realizar o build, clique em `Construir agora` no menu lateral esquerdo:
 
