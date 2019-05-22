@@ -1,6 +1,6 @@
 # Instalando o Jenkins
 
-![logo](/04-InstalandoJenkins/images/logo.png)
+<!-- ![logo](/04-InstalandoJenkins/images/logo.png) -->
 
 
 Agora que já temos a configuração de rede de nossas máquinas virtuais devidamente efetuadas e todos os pré-requisitos devidamente preenchidos, vamos passar ao processo de instalação do Jenkins.
