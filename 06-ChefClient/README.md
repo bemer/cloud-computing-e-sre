@@ -7,8 +7,8 @@ O Chef Client é um agente que deve ser executado localmente em todos os servido
 
 Após realizar a configuração de port forwarding e acessar o `chef-client` utilizando o putty, o próximo passo em nosso laboratório é realizar a instalação do `chef-client`. O processo para instalação do chef-client é extremamente simples, sendo basicamente realizado pelos comandos:
 
-    $ wget https://omnitruck.chef.io/install.sh
-    $ chmod 700 ./install.sh
+    $ sudo wget https://omnitruck.chef.io/install.sh
+    $ sudo chmod 700 ./install.sh
     $ sudo ./install.sh
 
 >Durante o processo de instalação, será requisitada a senha do usuário chef-admin. Insira a mesma senha utilizada para se logar no servidor.
