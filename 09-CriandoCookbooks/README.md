@@ -7,7 +7,7 @@ Neste momento, já temos nosso ambiente pronto com o Chef Server instalado, um c
 
 Para realizar a criação de nosso primeiro `cookbook`, deveremos acessar o `chef-server` e no diretório `chef-repo` executar o seguinte comando:
 
-    # chef generate cookbook cookbooks/motd
+    # sudo chef generate cookbook cookbooks/motd
 
 >Alguns erros serão gerados, pois não realizamos as configurações globais de usuário do Git. Em nosso laboratório, podemos ignorar estes erros.
 
