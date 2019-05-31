@@ -99,7 +99,7 @@ Em nosso laboratório, vamos instalar o Chef DK no mesmo servidor em que instala
 
 Em seguida, vamos realizar o processo de instalação:
 
-    $ sudo dpkg –i chefdk_2.4.17-1_amd64.deb
+    $ sudo dpkg -i chefdk_2.4.17-1_amd64.deb
 
 Feito isto, vamos realizar a configuração do Workstation. O workstation é basicamente uma máquina que contém todos os pacotes necessários para interagirmos com o Chef e realizar a criação de cookbooks, receitas, testar e validar o funcionamento do Chef e interagir com o Chef Server.
 

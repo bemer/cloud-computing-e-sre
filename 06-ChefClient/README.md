@@ -19,7 +19,7 @@ Para validar o processo de instalação do chef-client, execute o seguinte coman
 
 A saída do comando deverá ser semelhante a:
 
-    Chef: 14.0.190
+    Chef: 15.0.300
 
 ## 2. Criando uma receita
 
